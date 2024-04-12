@@ -1,0 +1,25 @@
+version: '2.4'
+
+services:
+  ddogzip:
+    build: .
+    environment:
+      - ZIPKIN_HOST=zipkin
+      - LOG_LEVEL=debug
+
+    ports:
+      - 8126:8126
+
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin-slim:latest
+    environment:
+      - STORAGE_TYPE=mem
+      # Uncomment to enable self-tracing
+      # - SELF_TRACING_ENABLED=true
+      # Uncomment to increase heap size
+      # - JAVA_OPTS=-Xms128m -Xmx128m -XX:+ExitOnOutOfMemoryError
+    ports:
+      # Port used for the Zipkin UI and HTTP Api
+      - 9411:9411
+    # Uncomment to enable debug logging
+    command: --logging.level.zipkin2=DEBUG
