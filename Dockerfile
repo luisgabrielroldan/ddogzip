@@ -7,11 +7,12 @@ RUN mix local.rebar --force \
 
 WORKDIR /app
 
-COPY lib ./lib
-COPY config ./config
-COPY rel ./rel
+COPY lib .
+COPY config .
+COPY rel .
 COPY mix.exs .
 COPY mix.lock .
+COPY VERSION .
 
 RUN mix deps.get --only $MIX_ENV
 
@@ -20,6 +21,10 @@ RUN mix deps.compile
 RUN mix release ddogzip
 
 FROM alpine:3.17 as ddogzip
+
+LABEL org.opencontainers.image.source=https://github.com/luisgabrielroldan/ddogzip
+LABEL org.opencontainers.image.description="Datadog to Zipking collector"
+LABEL org.opencontainers.image.licenses=MIT
 
 RUN apk add --no-cache \
       ncurses \
