@@ -21,4 +21,5 @@ jobs:
           package-name: release
           bump-minor-pre-major: true
           bump-patch-for-minor-pre-major: true
+          version-file: VERSION
           token: ${{ secrets.PAT }}
