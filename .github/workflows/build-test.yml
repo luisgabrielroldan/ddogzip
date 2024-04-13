@@ -1,9 +1,9 @@
 on: push
+name: Docker build test
 
 jobs:
   test-suite:
     runs-on: ubuntu-20.04
-    name: Docker build test
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
