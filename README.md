@@ -1,4 +1,6 @@
-![Docker Image Size (tag)](https://img.shields.io/docker/image-size/luisgabrielroldan/ddogzip/latest)
+<p>
+  <a href="https://hub.docker.com/r/luisgabrielroldan/ddogzip"><img alt="Docker Pulls" src="https://img.shields.io/docker/image-size/luisgabrielroldan/ddogzip"></a>
+</p>
 
 # DDogZip
 
