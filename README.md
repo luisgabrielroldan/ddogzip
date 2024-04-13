@@ -1,3 +1,5 @@
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/luisgabrielroldan/ddogzip/latest)
+
 # DDogZip
 
 DDogZip is a simple application that functions as a Datadog traces collector. It listens for tracing data from Datadog clients, translates it, and forwards it to a Zipkin collector.
