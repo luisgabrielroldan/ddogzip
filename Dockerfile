@@ -8,16 +8,18 @@ RUN mix local.rebar --force \
 
 WORKDIR /app
 
-COPY lib lib
-COPY config config
-COPY rel rel
 COPY mix.exs ./
 COPY mix.lock ./
-COPY version.txt ./
 
 RUN mix deps.get --only $MIX_ENV
 
+COPY lib lib
+COPY config config
+COPY rel rel
+
 RUN mix deps.compile
+
+COPY version.txt ./
 
 RUN mix compile
 

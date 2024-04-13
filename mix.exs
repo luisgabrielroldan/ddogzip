@@ -14,7 +14,10 @@ defmodule DDogZip.MixProject do
   end
 
   def version do
-    File.read!("version.txt") |> String.trim()
+    case File.read("version.txt") do
+      {:ok, version} -> String.trim(version)
+      _ -> "0.0.0"
+    end
   end
 
   def releases do
