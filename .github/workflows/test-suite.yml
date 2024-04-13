@@ -1,0 +1,31 @@
+on: push
+name: Tests & Dialyzer
+
+env:
+  otp_version: '24'
+  elixir_version: '1.16'
+
+jobs:
+  test-suite:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ env.otp_version }}
+          elixir-version: ${{ env.elixir_version }}
+
+      - name: Setup cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            _build
+            deps
+          key: ${{ runner.os }}-${{ env.elixir_version }}-${{ env.otp_version }}-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}
+            ${{ runner.os }}-${{ env.elixir_version }}-${{ env.otp_version }}
+
+      - run: mix deps.get
+      - run: mix test
+      - run: mix dialyzer
