@@ -1,0 +1,15 @@
+on: push
+
+jobs:
+  test-suite:
+    runs-on: ubuntu-20.04
+    name: Tests & Dialyzer
+    steps:
+      - uses: actions/checkout@v4
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: '24'
+          elixir-version: '1.16'
+      - run: mix deps.get
+      - run: mix test
+      - run: mix dialyzer
