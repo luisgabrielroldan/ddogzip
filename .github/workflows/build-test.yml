@@ -1,5 +1,11 @@
-on: push
 name: Docker build test
+
+on:
+  pull_request:
+    types:
+      - opened'
+    branches:
+      - 'release-v*'
 
 jobs:
   test-build:
