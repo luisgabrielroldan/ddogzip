@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://www.github.com/luisgabrielroldan/ddogzip/compare/v0.1.2...v0.2.0) (2024-04-13)
+
+
+### Features
+
+* Add version to logs ([1e73fda](https://www.github.com/luisgabrielroldan/ddogzip/commit/1e73fdac7dc12edaee3e4482c15b02fa63e4a035))
+
 ### [0.1.2](https://www.github.com/luisgabrielroldan/ddogzip/compare/v0.1.1...v0.1.2) (2024-04-13)
 
 
