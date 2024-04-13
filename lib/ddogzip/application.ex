@@ -13,7 +13,9 @@ defmodule DDogZip.Application do
     zipkin_host = Config.get_zipkin_host()
     zipkin_port = Config.get_zipkin_port()
 
-    Logger.info("Starting DataDog trace agent on port #{api_port}")
+    app_version = Application.spec(:ddogzip)[:vsn]
+
+    Logger.info("Starting DataDog v#{app_version} trace agent on port #{api_port}")
     Logger.info("Zipkin target: #{zipkin_host}:#{zipkin_port}")
 
     children = [
