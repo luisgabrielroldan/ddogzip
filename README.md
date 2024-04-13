@@ -4,9 +4,11 @@
 
 # DDogZip
 
-DDogZip is a simple application that functions as a Datadog traces collector. It listens for tracing data from Datadog clients, translates it, and forwards it to a Zipkin collector.
+DDogZip is a tool designed to facilitate local development by converting DataDog-style traces into Zipkin formats.
 
-This tool is ideal for local development environments where you want to debug tracing without sending data to Datadog's infrastructure.
+It allows developers to debug and analyze their traces locally without the need to transmit data to DataDog's infrastructure.
+
+This tool is not intended to replace DataDog, but rather to enhance the debugging process during development phases where local trace analysis is required.
 
 ## Getting Started
 
