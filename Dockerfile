@@ -13,7 +13,7 @@ COPY config config
 COPY rel rel
 COPY mix.exs ./
 COPY mix.lock ./
-COPY VERSION ./
+COPY version.txt ./
 
 RUN mix deps.get --only $MIX_ENV
 

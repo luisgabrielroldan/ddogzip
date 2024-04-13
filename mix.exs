@@ -14,7 +14,7 @@ defmodule DDogZip.MixProject do
   end
 
   def version do
-    File.read!("VERSION") |> String.trim()
+    File.read!("version.txt") |> String.trim()
   end
 
   def releases do
