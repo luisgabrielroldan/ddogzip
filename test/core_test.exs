@@ -55,18 +55,14 @@ defmodule DDogZip.CoreTest do
 
       expected_output = [
         %{
-          "id" => "1",
-          "traceId" => "2",
-          "parentId" => "0",
-          "name" => "test",
-          "timestamp" => 1000,
           "duration" => 500,
-          "tags" => %{
-            "dd.resource" => "resource-name",
-            "dd.error" => 0,
-            "dd.type" => "web"
-          },
-          "localEndpoint" => %{"serviceName" => "service-name"}
+          "id" => "0000000000000001",
+          "localEndpoint" => %{"serviceName" => "service-name"},
+          "name" => "test",
+          "parentId" => "0000000000000000",
+          "tags" => %{"dd.error" => "0", "dd.resource" => "resource-name", "dd.type" => "web"},
+          "timestamp" => 1000,
+          "traceId" => "0000000000000002"
         }
       ]
 
