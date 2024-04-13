@@ -1,7 +1,7 @@
-defmodule DDogZip.CoreTest do
+defmodule DDogZip.TracesTest do
   use ExUnit.Case
 
-  alias DDogZip.Core
+  alias DDogZip.Traces
 
   describe "dd_decode/1" do
     test "decodes encoded data successfully" do
@@ -24,12 +24,12 @@ defmodule DDogZip.CoreTest do
       ]
 
       encoded_data = Msgpax.pack!(dd_data)
-      assert Core.dd_decode(encoded_data) == {:ok, dd_data}
+      assert Traces.decode_dd_payload(encoded_data) == {:ok, dd_data}
     end
 
     test "returns an error on decode failure" do
       encoded_data = "invalid"
-      assert Core.dd_decode(encoded_data) == {:error, :decode}
+      assert Traces.decode_dd_payload(encoded_data) == {:error, :decode}
     end
   end
 
@@ -55,22 +55,18 @@ defmodule DDogZip.CoreTest do
 
       expected_output = [
         %{
-          "id" => "1",
-          "traceId" => "2",
-          "parentId" => "0",
-          "name" => "test",
-          "timestamp" => 1000,
           "duration" => 500,
-          "tags" => %{
-            "dd.resource" => "resource-name",
-            "dd.error" => 0,
-            "dd.type" => "web"
-          },
-          "localEndpoint" => %{"serviceName" => "service-name"}
+          "id" => "0000000000000001",
+          "localEndpoint" => %{"serviceName" => "service-name"},
+          "name" => "test",
+          "parentId" => "0000000000000000",
+          "tags" => %{"dd.error" => "0", "dd.resource" => "resource-name", "dd.type" => "web"},
+          "timestamp" => 1000,
+          "traceId" => "0000000000000002"
         }
       ]
 
-      assert Core.dd_to_zipkin(dd_data) == expected_output
+      assert Traces.to_zipkin(dd_data) == expected_output
     end
   end
 end
