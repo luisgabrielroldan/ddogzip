@@ -1,40 +1,36 @@
-defmodule DDogZip.Core do
+defmodule DDogZip.Traces do
   @moduledoc """
-  This module provides functionalities to decode data and convert it into a
-  format compatible with Zipkin for tracing distributed systems.
+  This module is responsible for converting DataDog traces to Zipkin traces.
   """
 
   require Logger
-  alias Msgpax, as: Encoder
 
   @type dd_span :: %{binary() => term()}
   @type dd_data :: [[dd_span()]]
   @type zipkin_span :: map()
   @type zipkin_data :: [zipkin_span()]
 
-  @spec dd_decode(iodata()) :: {:ok, dd_data()} | {:error, :decode}
-  def dd_decode(encoded_data) do
+  @spec decode_dd_payload(iodata()) :: {:ok, dd_data()} | {:error, :decode}
+  def decode_dd_payload(encoded_data) do
     encoded_data
-    |> Encoder.unpack()
+    |> Msgpax.unpack()
     |> handle_unpack_response()
   end
 
-  @spec handle_unpack_response({:ok, any()} | {:error, any()}) ::
-          {:ok, dd_data()} | {:error, :decode}
   defp handle_unpack_response({:ok, data}) when is_list(data), do: {:ok, data}
   defp handle_unpack_response({:error, _reason}), do: {:error, :decode}
 
-  @spec dd_to_zipkin(dd_data()) :: zipkin_data()
-  def dd_to_zipkin(data) do
-    zipkin_data =
+  @spec to_zipkin(dd_data()) :: zipkin_data()
+  def to_zipkin(data) do
+    result =
       data
       |> List.flatten()
       |> Enum.map(&build_zipkin_span/1)
 
-    trace_ids = Enum.map(zipkin_data, & &1["traceId"]) |> Enum.uniq()
+    trace_ids = Enum.map(result, & &1["traceId"]) |> Enum.uniq()
     Logger.debug("Trace IDs: #{inspect(trace_ids)}")
 
-    zipkin_data
+    result
   end
 
   @spec build_zipkin_span(dd_span()) :: zipkin_span()

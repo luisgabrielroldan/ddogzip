@@ -2,11 +2,10 @@ defmodule DDogZip.ZipkinClient do
   @moduledoc false
 
   alias DDogZip.Config
-  alias DDogZip.Core
-
+  alias DDogZip.Traces
   require Logger
 
-  @spec send(Core.zipkin_data()) :: :ok | {:error, HTTPoison.Error.t()}
+  @spec send(Traces.zipkin_data()) :: :ok | {:error, HTTPoison.Error.t()}
   def send(zdata) do
     host = Config.get_zipkin_host()
     port = Config.get_zipkin_port()

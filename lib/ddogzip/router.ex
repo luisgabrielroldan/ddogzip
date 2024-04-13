@@ -3,17 +3,17 @@ defmodule DDogZip.Router do
 
   require Logger
 
-  alias DDogZip.{Core, ZipkinClient}
+  alias DDogZip.{Traces, ZipkinClient}
 
   plug(:match)
   plug(:dispatch)
 
   put "/v0.3/traces" do
     with {:ok, ddpayload, conn} <- Plug.Conn.read_body(conn),
-         {:ok, ddata} <- Core.dd_decode(ddpayload) do
+         {:ok, ddata} <- Traces.decode_dd_payload(ddpayload) do
       :ok =
         ddata
-        |> Core.dd_to_zipkin()
+        |> Traces.to_zipkin()
         |> ZipkinClient.send()
 
       send_resp(conn, 200, "Ok")
