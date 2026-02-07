@@ -4,6 +4,10 @@
 
 # DDogZip
 
+> ⚠️ This project has been deprecated. The active development has moved to https://github.com/luisgabrielroldan/ddogzip-go. The Docker image luisgabrielroldan/ddogzip now points to the new Go version.
+
+---
+
 DDogZip is a tool designed to facilitate local development by converting DataDog-style traces into Zipkin formats.
 
 It allows developers to debug and analyze their traces locally without the need to transmit data to DataDog's infrastructure.
